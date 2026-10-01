@@ -24,30 +24,32 @@ This project demonstrates how to establish secure network connectivity between t
 ```mermaid
 flowchart TB
     subgraph AWS["AWS Region: us-east-2"]
+        direction LR
         subgraph A["VPC-A | 10.0.0.0/16"]
+            direction TB
             SA["Private Subnet A<br/>10.0.1.0/24"]
-            RTA["Private Route Table A"]
             ECA["EC2-A<br/>Private IP: 10.0.1.x"]
-            EP["SSM Interface Endpoints<br/>ssm / ssmmessages / ec2messages"]
+            RTA["Route Table A"]
+            EP["SSM Interface Endpoints<br/>ssm, ssmmessages, ec2messages"]
             SA --> ECA
-            SA -.-> RTA
-        end
-        subgraph B["VPC-B | 20.0.0.0/16"]
-            SB["Private Subnet B<br/>20.0.1.0/24"]
-            RTB["Private Route Table B"]
-            ECB["EC2-B<br/>20.0.1.178"]
-            SB --> ECB
-            SB -.-> RTB
+            ECA -.-> EP
+            RTA
         end
         PCX["VPC Peering<br/>Active"]
+        subgraph B["VPC-B | 20.0.0.0/16"]
+            direction TB
+            SB["Private Subnet B<br/>20.0.1.0/24"]
+            ECB["EC2-B<br/>20.0.1.178"]
+            RTB["Route Table B"]
+            SB --> ECB
+            RTB
+        end
+        RTA <-->|"Peering routes"| PCX
+        PCX <-->|"Peering routes"| RTB
         ECA <-->|"Private traffic"| ECB
-        RTA -->|"20.0.0.0/16"| PCX
-        RTB -->|"10.0.0.0/16"| PCX
-        ECA -.->|"SSM management"| EP
     end
-    EP -.->|"Private SSM connection"| SSM["AWS Systems Manager<br/>Session Manager"]
+    EP -.-> SSM["AWS Systems Manager<br/>Session Manager"]
 ```
-
 Two VPCs are connected using a VPC Peering connection. Route tables are configured to allow traffic between the required networks.
 
 ## Implementation Steps
