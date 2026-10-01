@@ -82,6 +82,21 @@ The successful ping test confirms private network connectivity between the two V
 - Security group configuration
 - Private network connectivity
 - AWS network troubleshooting
+  ## Project Screenshots
+
+The following screenshots document the VPC Peering implementation and validation.
+
+### 1. VPC Configuration
+
+### 2. VPC Peering Connection
+
+### 3. Private Subnets and Route Tables
+
+### 4. SSM VPC Endpoints
+
+### 5. EC2 Connectivity Test
+
+*Screenshots will be added here.*
 
 ## Author
 
