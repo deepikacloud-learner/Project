@@ -96,7 +96,23 @@ The following screenshots document the VPC Peering implementation and validation
 
 ### 5. EC2 Connectivity Test
 
-*Screenshots will be added here.*
+### 1. VPC Configuration
+![VPC Created](<Vpc A&B Created.png>)
+
+### 2. Private Subnets
+![Private Subnets](<Private subnet created A&B.png>)
+
+### 3. Route Tables
+![Route Table A](<Created Route Table-A.png>)
+![Route Tables A and B](<Created RT-A&B.png>)
+
+### 4. Route Table Associations
+![RT-A](<RT-A route associated B.png>)
+![RT-B](<RT-B route associate A.png>)
+
+### 5. Connectivity Testing
+![VPC-A to VPC-B](<Test VPC-A TO VPC -B.png>)
+![VPC-B to VPC-A](<Test VPC-B TO VPC-A.png>)
 
 ## Author
 
