@@ -21,6 +21,32 @@ This project demonstrates how to establish secure network connectivity between t
 - Security Groups
 
 ## Architecture
+```mermaid
+flowchart TB
+    subgraph AWS["AWS Region: us-east-2"]
+        subgraph A["VPC-A | 10.0.0.0/16"]
+            SA["Private Subnet A<br/>10.0.1.0/24"]
+            RTA["Private Route Table A"]
+            ECA["EC2-A<br/>Private IP: 10.0.1.x"]
+            EP["SSM Interface Endpoints<br/>ssm / ssmmessages / ec2messages"]
+            SA --> ECA
+            SA -.-> RTA
+        end
+        subgraph B["VPC-B | 20.0.0.0/16"]
+            SB["Private Subnet B<br/>20.0.1.0/24"]
+            RTB["Private Route Table B"]
+            ECB["EC2-B<br/>20.0.1.178"]
+            SB --> ECB
+            SB -.-> RTB
+        end
+        PCX["VPC Peering<br/>Active"]
+        ECA <-->|"Private traffic"| ECB
+        RTA -->|"20.0.0.0/16"| PCX
+        RTB -->|"10.0.0.0/16"| PCX
+        ECA -.->|"SSM management"| EP
+    end
+    EP -.->|"Private SSM connection"| SSM["AWS Systems Manager<br/>Session Manager"]
+```
 
 Two VPCs are connected using a VPC Peering connection. Route tables are configured to allow traffic between the required networks.
 
