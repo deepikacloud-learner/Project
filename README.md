@@ -61,10 +61,19 @@ Two VPCs are connected using a VPC Peering connection. Route tables are configur
 5. Update the route tables on both sides.
 6. Configure security groups to allow the required traffic.
 7. Test connectivity between the VPCs.
+   
 
 ## Testing and Validation
 
-Connectivity was tested between the VPCs after configuring the peering connection and routing. Add your actual test results and screenshots here.
+The VPC Peering connectivity was validated by testing communication between EC2 instances in the private subnets.
+
+- **Source:** EC2-A in VPC-A
+- **Destination:** EC2-B in VPC-B
+- **Test:** ICMP ping
+- **Result:** Successful
+- **Packet loss:** 0%
+
+The successful ping test confirms private network connectivity between the two VPCs through the VPC Peering connection.
 
 ## Key Learnings
 
